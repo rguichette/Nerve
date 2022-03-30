@@ -3,33 +3,27 @@ const httpServer = require("http").createServer(app);
 import { Request, Response } from "express";
 import { Server } from "socket.io";
 
-// const options = { origin: "*" };
+
+const io = new Server(httpServer, { cors:{
+  origin:"*",
+},
+path: '/chat'
+// transports: ['websocket', 'polling']
+
+});
 
 
-// const io = require("socket.io")(httpServer);
+io.on("connection", (socket) => {
+  socket.emit("connected", "some message from server")
+  console.log("socket id",socket.id); 
+});
 
-const io = new Server(httpServer, {
-    cors: {
-      origin: "*"
-    }
-  });
-
-// io.on("connection", socket => { console.log("connected")});
-
-
-app.get('/', (req:Request, res:Response) => {
+app.get('/testing', (req:Request, res:Response) => {
     res.send('chat world!!!!#!');
 });
 
 
-
-
-
-
-
-
-
-httpServer.listen(80, ()=>{
+httpServer.listen(8080, ()=>{
     console.log("chat ready to go!")
 });
 

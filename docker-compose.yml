@@ -16,5 +16,7 @@ services:
   chat:
     build: ./chat
     container_name: chat
+    ports:
+      - 8080:8080
     volumes:
       - ./chat:/app

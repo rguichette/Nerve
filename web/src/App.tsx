@@ -1,24 +1,23 @@
 import React from 'react';
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost/chat", {
-});
+const socket = io("http://localhost",
+{
+  path: '/chat'
+}
+);
 
-socket.on('connection',()=>{
-  console.log
-})
 
 function App() {
+  
+  socket.on("connected", (msg) => {
+    console.log(msg); // ojIckSD2jqNzOqIrAGzL
+  });
 
+  
   return (
     <div className="App">
-
-      {
-
-
-
-
-      }
+      <p>hello there</p>
 
     </div>
   );
