@@ -20,3 +20,11 @@ services:
       - 8080:8080
     volumes:
       - ./chat:/app
+    
+  
+
+  online_users:
+    build: ./online_users
+    container_name: online_users
+    ports: 
+      - 6379:6379
