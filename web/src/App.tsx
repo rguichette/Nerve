@@ -10,9 +10,11 @@ const socket = io("http://localhost",
 
 function App() {
   
-  socket.on("connected", (msg) => {
-    console.log(msg); // ojIckSD2jqNzOqIrAGzL
-  });
+  // socket.on("connected", (msg) => {
+  //   console.log(msg); // ojIckSD2jqNzOqIrAGzL
+
+  // });
+  socket.emit("send_message", {message:"my message from client"})
 
   
   return (

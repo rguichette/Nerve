@@ -1,7 +1,10 @@
 const app = require("express")();
 const httpServer = require("http").createServer(app);
 import { Request, Response } from "express";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
+
+import connectionHandler from "./src/events/initConnection";
+import messageHandler from './src/events/MessageHandler'
 
 
 const io = new Server(httpServer, { cors:{
@@ -12,11 +15,23 @@ path: '/chat'
 
 });
 
+const onConnection = (socket:Socket) => {
+  connectionHandler(io, socket)
+  messageHandler(io, socket);
+}
 
-io.on("connection", (socket) => {
-  socket.emit("connected", "some message from server")
-  console.log("socket id",socket.id); 
-});
+io.on("connection",onConnection );
+
+
+// (socket) => {
+//   socket.emit("connected", "some message from server")
+//   console.log("socket id",socket.id); 
+
+//   //handle all events here
+
+
+
+// }
 
 app.get('/testing', (req:Request, res:Response) => {
     res.send('chat world!!!!#!');
